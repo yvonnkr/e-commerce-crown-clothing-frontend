@@ -2,11 +2,15 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { ReactComponent as Logo } from "../../assets/crown.svg";
 import { auth } from "../../firebase/firebase.utils";
+
+import CartIcon from "./../cart-icon/CartIcon";
+import CartDropdown from "../cart-dropdown/CartDropdown";
+
+import { ReactComponent as Logo } from "../../assets/crown.svg";
 import "./Header.scss";
 
-const Header = ({ currentUser }) => {
+const Header = ({ currentUser, hidden }) => {
   return (
     <div className="header">
       <NavLink to="/" className="log-container">
@@ -16,9 +20,11 @@ const Header = ({ currentUser }) => {
         <NavLink className="option" to="/shop">
           SHOP
         </NavLink>
+
         <NavLink className="option" to="/contact">
           CONTACT
         </NavLink>
+
         {currentUser ? (
           <div className="option" onClick={() => auth.signOut()}>
             SIGN OUT
@@ -28,13 +34,17 @@ const Header = ({ currentUser }) => {
             SIGN IN
           </NavLink>
         )}
+
+        <CartIcon />
       </div>
+      {!hidden && <CartDropdown />}
     </div>
   );
 };
 
-const mapStateToProps = state => ({
-  currentUser: state.user.currentUser
+const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({
+  currentUser,
+  hidden
 });
 
 export default connect(mapStateToProps)(Header);
