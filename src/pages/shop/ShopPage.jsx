@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 
 import SHOP_DATA from "./shop.data";
-import "./Shop.scss";
+import "./ShopPage.scss";
 import CollectionPreview from "../../components/collection-preview/CollectionPreview";
 
-class Shop extends Component {
+class ShopPage extends Component {
   state = {
     collections: SHOP_DATA
   };
@@ -20,4 +20,4 @@ class Shop extends Component {
   }
 }
 
-export default Shop;
+export default ShopPage;
