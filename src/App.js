@@ -8,6 +8,7 @@ import HomePage from "./pages/homepage/HomePage";
 import ShopPage from "./pages/shop/ShopPage";
 import SignInAndSignUpPage from "./pages/signin-signup/SignInAndSignUp";
 import CheckoutPage from "./pages/checkout/CheckoutPage";
+import NotFound from "./components/404Page";
 
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import { setCurrentUser } from "./redux/user/user.actions";
@@ -53,6 +54,7 @@ class App extends Component {
               currentUser ? <Redirect to="/" /> : <SignInAndSignUpPage />
             }
           />
+          <Route component={NotFound} />
         </Switch>
       </>
     );
