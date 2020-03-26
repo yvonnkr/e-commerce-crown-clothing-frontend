@@ -24,7 +24,7 @@ class ShopPage extends Component {
   componentDidMount() {
     const collectionRef = firestore.collection("collections");
 
-    this.unsubscribeFromSnapshot = collectionRef.onSnapshot(async snapshot => {
+    collectionRef.get().then(async snapshot => {
       const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
 
       this.props.updateCollections(collectionsMap);
@@ -58,3 +58,21 @@ class ShopPage extends Component {
 }
 
 export default connect(null, { updateCollections })(ShopPage);
+
+// fetch(
+//   "https://firestore.googleapis.com/v1/projects/crown-clothing-6f782/databases/(default)/documents/collections"
+// )
+//   .then(response => response.json())
+//   .then(collections => console.log(collections));
+
+// componentDidMount() {
+//   const collectionRef = firestore.collection("collections");
+
+//   this.unsubscribeFromSnapshot = collectionRef.onSnapshot(async snapshot => {
+//     const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
+
+//     this.props.updateCollections(collectionsMap);
+
+//     this.setState({ loading: false });
+//   });
+// }
