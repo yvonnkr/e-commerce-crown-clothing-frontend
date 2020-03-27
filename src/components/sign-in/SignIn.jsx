@@ -3,8 +3,10 @@ import { connect } from "react-redux";
 
 import FormInput from "./../form-input/FormInput";
 import CustomButton from "./../custom-button/CustomButton";
-import { signInWithGoogle, auth } from "../../firebase/firebase.utils";
-import { googleSignInStart } from "../../redux/user/user.actions";
+import {
+  googleSignInStart,
+  emailSignInStart
+} from "../../redux/user/user.actions";
 import "./SignIn.scss";
 
 class SignIn extends Component {
@@ -18,12 +20,7 @@ class SignIn extends Component {
 
     const { email, password } = this.state;
 
-    try {
-      await auth.signInWithEmailAndPassword(email, password);
-      this.setState({ email: "", password: "" });
-    } catch (err) {
-      console.log(err);
-    }
+    this.props.emailSignInStart({ email, password });
   };
 
   handleChange = e => {
@@ -75,4 +72,4 @@ class SignIn extends Component {
   }
 }
 
-export default connect(null, { googleSignInStart })(SignIn);
+export default connect(null, { googleSignInStart, emailSignInStart })(SignIn);
