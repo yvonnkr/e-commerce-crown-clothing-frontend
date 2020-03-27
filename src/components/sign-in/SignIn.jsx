@@ -1,8 +1,10 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 import FormInput from "./../form-input/FormInput";
 import CustomButton from "./../custom-button/CustomButton";
 import { signInWithGoogle, auth } from "../../firebase/firebase.utils";
+import { googleSignInStart } from "../../redux/user/user.actions";
 import "./SignIn.scss";
 
 class SignIn extends Component {
@@ -18,7 +20,6 @@ class SignIn extends Component {
 
     try {
       await auth.signInWithEmailAndPassword(email, password);
-
       this.setState({ email: "", password: "" });
     } catch (err) {
       console.log(err);
@@ -32,6 +33,8 @@ class SignIn extends Component {
   };
 
   render() {
+    const { googleSignInStart } = this.props;
+
     return (
       <div className="sign-in">
         <h2 className="title">I already have an account</h2>
@@ -58,7 +61,11 @@ class SignIn extends Component {
 
           <div className="buttons">
             <CustomButton type="submit">Sign In</CustomButton>
-            <CustomButton isGoogleSignIn onClick={signInWithGoogle}>
+            <CustomButton
+              type="button"
+              isGoogleSignIn
+              onClick={() => googleSignInStart()}
+            >
               Sign in with Google
             </CustomButton>
           </div>
@@ -68,4 +75,4 @@ class SignIn extends Component {
   }
 }
 
-export default SignIn;
+export default connect(null, { googleSignInStart })(SignIn);
