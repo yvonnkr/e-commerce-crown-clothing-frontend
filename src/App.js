@@ -12,7 +12,8 @@ import NotFound from "./components/404Page";
 
 import { selectCurrentUser } from "./redux/user/user-selectors";
 import { checkUserSession } from "./redux/user/user.actions";
-import "./App.css";
+import { GlobalStyle } from "./global.styles";
+// import "./App.css";
 
 const App = ({ currentUser, checkUserSession }) => {
   useEffect(() => {
@@ -21,6 +22,7 @@ const App = ({ currentUser, checkUserSession }) => {
 
   return (
     <>
+      <GlobalStyle />
       <Header />
       <Switch>
         <Route exact path="/" component={HomePage} />
